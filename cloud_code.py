@@ -10,7 +10,7 @@ log = logging.getLogger(__name__)
 def postRequest(record, original_record, db):
     log.info('New attendance: ' + record.get('name'))
     data = parse.urlencode({'name': record.get('name'), 'itsc': record.get('itsc'), 'eventid': record.get('event_id'), 'attendanceID': record.id.key}).encode()
-    req =  request.Request('http://d7e1084b.ngrok.io', data=data) # this will make the method "POST"
+    req =  request.Request('http://api.usthing.xyz/node/ems-email/send-email', data=data) # this will make the method "POST"
     resp = request.urlopen(req)
     return record
 

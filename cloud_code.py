@@ -1,14 +1,18 @@
 import skygear
 import logging
-
+from urllib import request, parse
 
 log = logging.getLogger(__name__)
 
 
 # Reject empty 'name' before saving a cat to the database
 @skygear.after_save('attendance', async=False)
-def validate_cat_name(record, original_record, db):
+def postRequest(record, original_record, db):
     log.info('New attendance: ' + record.get('name'))
+    data = parse.urlencode({'name': record.get('name')}).encode()
+    req =  request.Request('http://d7e1084b.ngrok.io', data=data) # this will make the method "POST"
+    resp = request.urlopen(req)
+    return record
 
 
 # # cron job that runs every 2 minutes

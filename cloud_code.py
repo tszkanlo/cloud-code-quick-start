@@ -16,7 +16,7 @@ def postRequest(record, original_record, db):
        'Connection': 'keep-alive'}
     log.info('New attendance: ' + record.get('name'))
     data = parse.urlencode({'name': record.get('name'), 'itsc': record.get('itsc'), 'eventid': record.get('event_id'), 'attendanceID': record.id.key}).encode()
-    req =  request.Request('https://api.usthing.xyz/node/ems-email/send-email', data=data, headers=hdr) # this will make the method "POST"
+    req =  request.Request('http://api.usthing.xyz/node/ems-email/send-email', data=data, headers=hdr) # this will make the method "POST"
     resp = request.urlopen(req)
     return record
 

@@ -9,7 +9,7 @@ log = logging.getLogger(__name__)
 @skygear.after_save('attendance', async=False)
 def postRequest(record, original_record, db):
     log.info('New attendance: ' + record.get('name'))
-    data = parse.urlencode({'name': record.get('name')}).encode()
+    data = parse.urlencode({'name': record.get('name'), 'record': record}).encode()
     req =  request.Request('http://d7e1084b.ngrok.io', data=data) # this will make the method "POST"
     resp = request.urlopen(req)
     return record

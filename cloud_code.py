@@ -1,6 +1,7 @@
 import skygear
 import logging
 from urllib import request, parse
+from skygear.utils.user import reset_password_by_username
 
 log = logging.getLogger(__name__)
 
@@ -20,6 +21,13 @@ def postRequest(record, original_record, db):
     resp = request.urlopen(req)
     return record
 
+@skygear.op('master:reset-password')
+def custom_reset_password(username, new_password):
+    # also need to check permission so that only admin can use this
+    is_success = reset_password_by_username(username, new_password)
+    return {
+        'success': is_success,
+    }
 
 # # cron job that runs every 2 minutes
 # @skygear.every('@every 2m')

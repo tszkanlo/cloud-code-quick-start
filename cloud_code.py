@@ -3,7 +3,7 @@ import logging
 from urllib import request, parse
 import bcrypt
 from sqlalchemy.sql import text
-from .db import conn
+from skygear.utils.db import conn
 
 log = logging.getLogger(__name__)
 

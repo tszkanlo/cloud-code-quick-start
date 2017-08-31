@@ -49,7 +49,7 @@ def reset_password_by_username(username, new_password):
     sql = text('''
         UPDATE \"_auth\"
         SET password = :new_password
-        WHERE id = (SELECT _owner_id
+        WHERE id = (SELECT \"_owner_id\"
                     FROM user
                     WHERE username = :username)
         ''')
